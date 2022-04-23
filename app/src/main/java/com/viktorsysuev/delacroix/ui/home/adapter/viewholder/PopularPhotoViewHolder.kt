@@ -23,7 +23,7 @@ class PopularPhotoViewHolder(private val binding: ItemPopularPhotoBinding) :
         binding.likes.text = item.likes.toString()
 
         Glide.with(context)
-            .load(item.urls?.small)
+            .load(item.urls?.regular)
             .placeholder(
                 ColorDrawable(
                     ContextCompat.getColor(

@@ -18,8 +18,8 @@ open class SliderItemDecorator : RecyclerView.ItemDecoration() {
         val isFirstItem = isFirstItem(index)
         val isLastItem = isLastItem(index, recyclerView)
 
-        val leftInset = AppUtil.dpToPx(16)
-        val rightInset = if (isLastItem) AppUtil.dpToPx(16) else 0
+        val leftInset = if (isFirstItem) AppUtil.dpToPx(16) else AppUtil.dpToPx(8)
+        val rightInset = if (isLastItem) AppUtil.dpToPx(16) else AppUtil.dpToPx(8)
 
         outRect.set(leftInset, AppUtil.dpToPx(16), rightInset, AppUtil.dpToPx(16))
     }
