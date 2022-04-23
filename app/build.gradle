@@ -54,7 +54,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
-    implementation "androidx.cardview:cardview:$cardVersion"
 
     // OkHttp
     implementation "com.squareup.okhttp3:logging-interceptor:$logInterceptorVersion"

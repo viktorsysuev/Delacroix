@@ -1,0 +1,40 @@
+package com.viktorsysuev.delacroix.ui.home.adapter.viewholder
+
+import android.graphics.drawable.ColorDrawable
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.viktorsysuev.delacroix.R
+import com.viktorsysuev.delacroix.data.model.Photo
+import com.viktorsysuev.delacroix.databinding.ItemPopularPhotoBinding
+
+class PopularPhotoViewHolder(private val binding: ItemPopularPhotoBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: Photo) {
+        val context = binding.root.context
+
+        Glide.with(context)
+            .load(item.urls?.small)
+            .placeholder(
+                ColorDrawable(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.grey
+                    )
+                )
+            )
+            .into(binding.mainPhoto)
+    }
+
+
+    companion object {
+
+        fun create(parent: ViewGroup): PopularPhotoViewHolder {
+            val binding = ItemPopularPhotoBinding.inflate(LayoutInflater.from(parent.context))
+            return PopularPhotoViewHolder(binding)
+        }
+    }
+}

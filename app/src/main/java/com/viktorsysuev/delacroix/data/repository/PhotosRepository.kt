@@ -4,5 +4,5 @@ import com.viktorsysuev.delacroix.data.model.Photo
 
 interface PhotosRepository {
 
-    suspend fun getRandomPhoto(): Photo
+    suspend fun getPopularPhotos(): List<Photo>
 }

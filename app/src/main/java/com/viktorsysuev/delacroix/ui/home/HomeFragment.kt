@@ -1,20 +1,17 @@
 package com.viktorsysuev.delacroix.ui.home
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.bumptech.glide.Glide
-import com.viktorsysuev.delacroix.R
-import com.viktorsysuev.delacroix.data.model.Photo
 import com.viktorsysuev.delacroix.databinding.FragmentHomeBinding
+import com.viktorsysuev.delacroix.ui.home.adapter.HomeListAdapter
+import com.viktorsysuev.delacroix.ui.home.adapter.PopularSliderItem
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -37,28 +34,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchRandomPhoto()
+        viewModel.fetchPopularPhotos()
 
-        binding.mainPhoto.setOnClickListener {
-            viewModel.fetchRandomPhoto()
-        }
+        val adapter = HomeListAdapter()
+        binding.list.adapter = adapter
 
         lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.photo.collectLatest {
-                    if (it is Success<*>) {
-                        val photo = it.data as Photo
-                        Glide.with(requireContext())
-                            .load(photo.urls.small)
-                            .placeholder(
-                                ColorDrawable(
-                                    ContextCompat.getColor(
-                                        requireContext(),
-                                        R.color.grey
-                                    )
-                                )
-                            )
-                            .into(binding.mainPhoto)
+                viewModel.photos.collectLatest {
+                    if (it is Success) {
+                        adapter.setData(listOf(PopularSliderItem(it.data)))
                     }
                 }
             }
