@@ -15,5 +15,6 @@ data class User(
     @Json(name = "total_collections") val totalCollections: Int?,
     @Json(name = "instagram_username") val instagramUsername: String?,
     @Json(name = "twitter_username") val twitterUsername: String?,
-    @Json(name = "links") val links: Links
+    @Json(name = "links") val links: Links,
+    @Json(name = "profile_image") val profileImage: ProfileLinks?
 )

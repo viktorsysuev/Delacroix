@@ -16,6 +16,12 @@ class PopularPhotoViewHolder(private val binding: ItemPopularPhotoBinding) :
     fun bind(item: Photo) {
         val context = binding.root.context
 
+        binding.name.text = item.user?.name
+        Glide.with(context)
+            .load(item.user?.profileImage?.small)
+            .into(binding.avatar)
+        binding.likes.text = item.likes.toString()
+
         Glide.with(context)
             .load(item.urls?.small)
             .placeholder(
