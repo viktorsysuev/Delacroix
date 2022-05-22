@@ -10,13 +10,14 @@ import com.viktorsysuev.delacroix.data.repository.PhotosRepositoryImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class HomeViewModel(private val repository: PhotosRepository) : ViewModel() {
 
     private val _photos = MutableStateFlow<UIState>(Loading)
-    val photos: StateFlow<UIState> = _photos
+    val photos: StateFlow<UIState> = _photos.asStateFlow()
 
     fun fetchPopularPhotos() {
         viewModelScope.launch(Dispatchers.IO) {

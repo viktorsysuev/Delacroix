@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.viktorsysuev.delacroix.databinding.FragmentHomeBinding
 import com.viktorsysuev.delacroix.ui.home.adapter.HomeListAdapter
 import com.viktorsysuev.delacroix.ui.home.adapter.PopularSliderItem
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import com.viktorsysuev.delacroix.ui.util.collectWhenStarted
 
 class HomeFragment : Fragment() {
 
@@ -39,13 +36,9 @@ class HomeFragment : Fragment() {
         val adapter = HomeListAdapter()
         binding.list.adapter = adapter
 
-        lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.photos.collectLatest {
-                    if (it is Success) {
-                        adapter.setData(listOf(PopularSliderItem(it.data)))
-                    }
-                }
+        viewModel.photos.collectWhenStarted(lifecycleScope) {
+            if (it is Success) {
+                adapter.setData(listOf(PopularSliderItem(it.data)))
             }
         }
     }
