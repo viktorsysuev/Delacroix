@@ -6,14 +6,10 @@ import com.viktorsysuev.delacroix.data.model.Photo
 import com.viktorsysuev.delacroix.ui.home.adapter.viewholder.PopularSliderViewHolder
 
 sealed class MainUiModel
-
 class PopularSliderItem(val photos: List<Photo>) : MainUiModel()
 class NewestItem() : MainUiModel()
 
 class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    private val POPULAR_SLIDER_TYPE = 0
-    private val NEWEST_SLIDER_TYPE = 1
 
     private var items: List<MainUiModel> = arrayListOf()
 
@@ -46,5 +42,10 @@ class HomeListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun setData(items: List<MainUiModel>) {
         this.items = items
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val POPULAR_SLIDER_TYPE = 0
+        private const val NEWEST_SLIDER_TYPE = 1
     }
 }

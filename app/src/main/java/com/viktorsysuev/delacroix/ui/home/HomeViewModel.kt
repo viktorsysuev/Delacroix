@@ -19,7 +19,7 @@ class HomeViewModel(private val repository: PhotosRepository) : ViewModel() {
     private val _photos = MutableStateFlow<UIState>(Loading)
     val photos: StateFlow<UIState> = _photos.asStateFlow()
 
-    fun fetchPopularPhotos() {
+    init {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val photo = repository.getPopularPhotos()

@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchPopularPhotos()
 
         val adapter = HomeListAdapter()
         binding.list.adapter = adapter
